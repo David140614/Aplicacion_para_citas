@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Citas Médicas</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Enlace a flatpickr para el calendario -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Enlace a qrious para generar códigos QR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+    <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Citas</a></li>
+        <li><a href="#">Doctores</a></li>
+        <li><a href="#">Configuración</a></li>
+    </ul>
+    </div>
+    <div class="container">
+        <div class="header">
+            <img src="th.png" alt="Logo" class="logo">
+            <h1>Gestión de Citas Médicas</h1>
+        </div>
+        <form action="#" method="POST" class="form" onsubmit="return agendarCita(event)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Paciente:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre del paciente" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="doctor">Seleccionar Doctor:</label>
+                    <select id="doctor" name="doctor" required>
+                        <option value="dr_perez">Dr. Pérez</option>
+                        <option value="dr_garcia">Dr. García</option>
+                        <option value="dr_rodriguez">Dr. Rodríguez</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fecha">Seleccionar Fecha:</label>
+                    <input type="text" id="fecha" name="fecha" placeholder="Seleccionar fecha" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="hora">Seleccionar Hora:</label>
+                    <select id="hora" name="hora" required>
+                        <option value="08:00">08:00 AM</option>
+                        <option value="09:00">09:00 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="13:00">01:00 PM</option>
+                        <option value="14:00">02:00 PM</option>
+                        <option value="15:00">03:00 PM</option>
+                        <option value="16:00">04:00 PM</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <button type="submit" class="btn agendar">Agendar Cita</button>
+                <button type="button" class="btn salir" onclick="salirAplicacion()">Salir</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Inicializar el calendario en el campo de fecha
+        flatpickr("#fecha", {
+            dateFormat: "d/m/Y", // Formato de fecha DD/MM/YYYY
+            minDate: "today",    // Evita seleccionar fechas pasadas
+        });
+
+        // Lista de citas ya ocupadas (simulación)
+        const citasOcupadas = [
+            { fecha: '25/09/2024', hora: '10:00' },
+            { fecha: '25/09/2024', hora: '12:00' },
+            { fecha: '26/09/2024', hora: '09:00' },
+            { fecha: '27/09/2024', hora: '11:00' },
+        ];
+
+        function salirAplicacion() {
+            alert("Saliendo de la aplicación...");
+            window.close(); // Solo funciona en algunos navegadores
+        }
+
+        function verificarDisponibilidad(fecha, hora) {
+            // Verifica si la fecha y hora seleccionadas ya están ocupadas
+            return citasOcupadas.some(cita => cita.fecha === fecha && cita.hora === hora);
+        }
+
+        function agendarCita(event) {
+            event.preventDefault(); // Evitar que el formulario se envíe de forma predeterminada
+
+            // Obtener los datos del formulario
+            const nombre = document.getElementById("nombre").value;
+            const doctor = document.getElementById("doctor").value;
+            const fecha = document.getElementById("fecha").value;
+            const hora = document.getElementById("hora").value;
+
+            // Verificar si la fecha y hora ya están ocupadas
+            if (verificarDisponibilidad(fecha, hora)) {
+                alert("La fecha y hora seleccionadas ya están ocupadas. Por favor, elija otro horario.");
+                return; // Detener el proceso de agendar la cita
+            }
+
+            if (nombre && doctor && fecha && hora) {
+                // Generar datos para el QR
+                const datosPaciente = `Nombre: ${nombre}\nDoctor: ${doctor.replace("_", " ")}\nFecha: ${fecha}\nHora: ${hora}`;
+
+                // Crear el código QR
+                const qrValue = new QRious({
+                    value: datosPaciente
+                }).toDataURL();
+
+                // Abrir nueva ventana para mostrar el mensaje de confirmación
+                const nuevaVentana = window.open("", "_blank", "width=500,height=500,top=100,left=400");
+                nuevaVentana.document.write(`
+                    <html>
+                    <head>
+                        <title>Cita Agendada</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+                            .success { color: green; font-size: 20px; font-weight: bold; }
+                            button { 
+                                padding: 10px 20px; 
+                                background-color: #2196F3; /* Color de fondo azul */
+                                color: white; /* Color del texto blanco */
+                                border: none; 
+                                cursor: pointer; 
+                                border-radius: 5px; /* Bordes redondeados */
+                                margin-top: 20px; /* Espacio superior */
+                            }
+                            button:hover {
+                                background-color: #0b7dda; /* Color de fondo más oscuro cuando se pasa el mouse */
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <p class="success">¡La cita ha sido agendada con éxito!</p>
+                        <p>Nombre del Paciente: ${nombre}</p>
+                        <p>Doctor: ${doctor.replace("_", " ")}</p>
+                        <p>Fecha: ${fecha}</p>
+                        <p>Hora: ${hora}</p>
+                        <h3>Su Código QR:</h3>
+                        <img src="${qrValue}" alt="Código QR" style="margin: 20px 0;">
+                        <p>Muéstrelo al llegar a su cita.</p>
+                        <button onclick="window.close()">Salir</button>
+                    </body>
+                    </html>
+                `);
+            } else {
+                alert("Por favor, complete todos los campos antes de agendar la cita.");
+            }
+        }
+    </script>
+    <div class="banner">
+    <img src="banner_lateral.avif" alt="Banner Lateral">
+    </div>
+    <div class="ad-space">
+    <p>¡Descuento especial en consultas para nuevos pacientes!</p>
+    </div>
+
+
+</body>
+</html>
