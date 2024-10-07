@@ -303,23 +303,15 @@ img {
 .container {
     margin-top: 70px; /* Ajusta según sea necesario para evitar que se superpongan */
 }
-.ad-space {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: #FFF9C4; /* Amarillo pastel */
-    text-align: center;
-    padding: 10px 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 50px; /* Ajusta el valor según sea necesario */
-}
 @media (min-width: 768px) {
     .ad-space {
         position: static;
-        margin-top: 20px; /* Espacio por encima del anuncio */
-        margin-bottom: 20px; /* Espacio por debajo del anuncio */
+        margin-top: 20px; /* Añade un espacio entre el contenido y el anuncio */
+        width: 100%; /* Asegura que el anuncio ocupe el ancho disponible */
+    }
+
+    .container {
+        margin-bottom: 50px; /* Añade margen en la parte inferior del contenido para evitar superposición */
     }
 }
 
