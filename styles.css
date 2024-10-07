@@ -272,36 +272,38 @@ img {
         right: 0;
     }
 }
-body {
-    display: flex;
-}
-
-.sidebar {
-    width: 200px;
-    flex-shrink: 0;
-}
-
 .container {
-    margin-left: 0;
-    flex-grow: 1;
+    margin-left: 220px; /* Ajusta el margen para compensar la barra lateral */
 }
 @media (max-width: 600px) {
-    .ad-space {
+    .sidebar {
         position: relative;
         width: 100%;
-        bottom: auto;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .container {
+        margin-left: 0;
+    }
+
+    .ad-space {
+        position: static;
+        width: 100%;
         margin-top: 20px;
         padding: 10px;
     }
 
     .banner {
         width: 100%;
-        position: relative;
-        top: 0;
-        right: 0;
-        margin-bottom: 20px;
+        margin-top: 20px;
+        position: static;
     }
 }
+.container {
+    margin-top: 70px; /* Ajusta según sea necesario para evitar que se superpongan */
+}
+
 
 
 
