@@ -7,14 +7,12 @@ body {
 }
 
 .container {
-    width: 400px;
-    margin: 50px auto;
+    max-width: 100%;
     padding: 20px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 /* Encabezado */
 .header {
     text-align: center;
@@ -227,6 +225,34 @@ input:focus, select:focus {
         width: 95%; /* Asegura que el modal ocupe la mayor parte de la pantalla */
     }
 }
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+}
+input, select, .btn {
+    margin-bottom: 10px;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 
 
 
