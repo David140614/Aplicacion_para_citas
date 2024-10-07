@@ -252,6 +252,26 @@ img {
     max-width: 100%;
     height: auto;
 }
+/* Ajuste de margen para evitar que el contenido quede debajo de la barra lateral */
+.container {
+    margin-left: 220px; /* Da un margen igual al ancho de la barra */
+}
+ @media (max-width: 600px) {
+    /* Ajusta el tamaño y posición del anuncio en móviles */
+    .ad-space {
+        position: relative; /* Para que ya no se superponga */
+        width: 100%;
+        bottom: auto; /* Quita la posición fija al fondo */
+        margin-top: 20px; /* Espacio por debajo del contenido */
+    }
+
+    .banner {
+        width: 100%; /* Ajusta el banner para pantallas pequeñas */
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+}
 
 
 
