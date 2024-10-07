@@ -181,5 +181,52 @@ input:focus, select:focus {
     text-decoration: none;
     cursor: pointer;
 }
+/* Estilos para pantallas móviles */
+@media (max-width: 600px) {
+    .container {
+        width: 90%; /* Se adapta al tamaño de la pantalla */
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .logo {
+        width: 150px;
+        height: 150px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    input, select {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .form-row {
+        flex-direction: column; /* Las columnas se vuelven filas en pantallas pequeñas */
+    }
+
+    .form-group {
+        width: 100%; /* Ocupa todo el ancho */
+    }
+
+    .sidebar {
+        width: 100px; /* Reduce el tamaño de la barra lateral en dispositivos móviles */
+    }
+
+    .banner {
+        width: 150px; /* Reduce el tamaño del banner en móviles */
+    }
+
+    .ad-space {
+        font-size: 14px; /* Ajusta el tamaño de texto en la sección de anuncios */
+    }
+
+    .modal-content {
+        width: 95%; /* Asegura que el modal ocupe la mayor parte de la pantalla */
+    }
+}
+
 
 
