@@ -272,6 +272,36 @@ img {
         right: 0;
     }
 }
+body {
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.container {
+    margin-left: 0;
+    flex-grow: 1;
+}
+@media (max-width: 600px) {
+    .ad-space {
+        position: relative;
+        width: 100%;
+        bottom: auto;
+        margin-top: 20px;
+        padding: 10px;
+    }
+
+    .banner {
+        width: 100%;
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-bottom: 20px;
+    }
+}
 
 
 
