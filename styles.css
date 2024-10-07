@@ -313,10 +313,6 @@ img {
     .container {
         margin-bottom: 50px; /* Añade margen en la parte inferior del contenido para evitar superposición */
     }
-}
-.salir {
-    margin-bottom: 50px; /* Añade espacio entre el botón de salir y el anuncio */
-}
 
 
 
